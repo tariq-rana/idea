@@ -24,16 +24,17 @@ export class IdeaService {
     
     }
 
-    async insertIdea(idea:IdeaDTO){
-        return await this.ideaRepository.save(idea);
+    async insertIdea(ideaDTO:IdeaDTO){
+        return await this.ideaRepository.save(ideaDTO);
     }
 
-    async updateIdea(id:string, IdeaDTO: Partial<IdeaDTO>){
-        const idea = await this.ideaRepository.findOne(id);
+    async updateIdea(id:string, ideaDTO: Partial<IdeaDTO>){
+        let idea = await this.ideaRepository.findOne(id);
         if(!idea){
             throw new HttpException('Not found',HttpStatus.NOT_FOUND);
         }
-        await this.ideaRepository.update({id},idea);
+        await this.ideaRepository.update({id},ideaDTO);
+        idea = await this.ideaRepository.findOne(id);
         return idea;
 
         // const oldIdea = await this.ideaRepository.findOne(id);
