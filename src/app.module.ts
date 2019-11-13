@@ -8,13 +8,14 @@ import { AppService } from './app.service';
 import { IdeaModule } from './idea/idea.module';
 import { HttpErrorFilter } from './shared/http-error.filter';
 import { LoggingInterceptors } from './shared/logging.interceptors';
-import { ValidationPipe } from './shared/validation.pipe';
+import { UserModule } from './user/user.module';
 
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
     IdeaModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [
