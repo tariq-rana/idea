@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, UsePipes, Logger } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, UsePipes, Logger, UseGuards } from '@nestjs/common';
 import { IdeaService } from './idea.service';
 import { IdeaDTO } from './idea.dto';
 import { ValidationPipe } from '../shared/validation.pipe';
+import { AuthGuard } from '../shared/auth.guard';
 
 @Controller('api/idea')
 export class IdeaController {
     constructor(private readonly ideaService:IdeaService){}
     private logger = new Logger('IdeaController');
 
+    @UseGuards(new AuthGuard())
     @Get()
     findAllIdea(){
             return this.ideaService.findAllIdea();
