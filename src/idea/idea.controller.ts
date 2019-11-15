@@ -4,7 +4,7 @@ import { IdeaDTO } from './idea.dto';
 import { ValidationPipe } from '../shared/validation.pipe';
 import { AuthGuard } from '../shared/auth.guard';
 import { User } from '../user/user.decorator';
-import { IdeaEntity } from './idea.entity';
+
 
 @Controller('api/idea')
 export class IdeaController {
@@ -57,5 +57,37 @@ export class IdeaController {
     deleteIdea(@Param('id') id:string, @User() user){
         this.logData({id,user});
         return this.ideaService.deleteIdea(id,user);
+    }
+
+    @Post(':id/bookmark')
+    @UseGuards(new AuthGuard())
+    bookmarkIdea(@Param('id') id:string, @User() user ) {
+        const userId = user.id;
+        this.logData({id,user});
+        return this.ideaService.bookmarkIdea(id,userId);
+    }
+
+    @Delete(':id/bookmark')
+    @UseGuards(new AuthGuard())
+    unbookmarkIdea(@Param('id') id:string, @User() user){
+        const userId = user.id;
+        this.logData({id,user});
+        return this.ideaService.unbookmarkIdea(id,userId);
+    }
+
+    @Post(':id/upvote')
+    @UseGuards(new AuthGuard())
+    upvoteIdea(@Param('id') id:string, @User() user ) {
+        const userId = user.id;
+        this.logData({id,user});
+        return this.ideaService.upvoteIdea(id,userId);
+    }
+
+    @Post(':id/downvote')
+    @UseGuards(new AuthGuard())
+    downvoteIdea(@Param('id') id:string, @User() user ) {
+        const userId = user.id;
+        this.logData({id,user});
+        return this.ideaService.downvoteIdea(id,userId);
     }
 }
