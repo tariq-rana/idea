@@ -16,11 +16,8 @@ export class AuthGuard implements CanActivate {
     const decoded = await this.validateToken(request.headers.authorization);
     request.user = decoded;
 
-    if(request.body['username'] === decoded['username'])
-        return true;
-    else
-        return false;
-    
+    return true;
+   
   }
 
   async validateToken(auth:string) {

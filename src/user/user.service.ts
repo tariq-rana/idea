@@ -12,34 +12,18 @@ export class UserService {
     
     
     async findAllUser(): Promise<UserRO[]>{
-        
-        const users = await this.userRepository.find();
+        const users = await this.userRepository.find({relations:['ideas']});
 
-         return users.map( user => {
-            return    user.toResponseObject(false);
+            return users.map( user => {
+                return    user.toResponseObject(false);
          });
        
-        // const users = await this.userRepository.find();
-       // return  users.map(user =>  user.toResponseObject());
-
-
-    //    const users = await this.userRepository.find();
-    //     return users.map( user => {
-    //         return    {...user.toResponseObject(true), "bcrypt": bcrypt.hash(user.password,10)}
-    //     });
-        
     }
 
     async findOneUser(id:string):Promise<UserRO>{
-        const user = await this.userRepository.findOne(id);
+        const user = await this.userRepository.findOne(id,{relations:['ideas']});
         return user.toResponseObject(true);
     }
-
-
-    // async insertUser(userDTO: UserDTO){
-    //     const newUserDTO:UserDTO = Object.assign(new UserEntity(),userDTO);
-    //     return await this.userRepository.save(newUserDTO);
-    // }
 
     async login(userDTO: UserDTO):Promise<UserRO>{
         const { username, password } = userDTO;
