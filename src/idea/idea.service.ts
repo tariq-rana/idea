@@ -60,14 +60,14 @@ export class IdeaService {
     }
 
     async findAllIdea(): Promise<IdeaRO[]>{
-        const ideas = await this.ideaRepository.find({relations:['author','upvotes','downvotes']});
+        const ideas = await this.ideaRepository.find({relations:['author','upvotes','downvotes','comments']});
         //return ideas;
         return ideas.map(idea => this.toResponseObject(idea)) ;
     }
 
     
     async findOneIdea(id:string): Promise<IdeaRO>{
-        const idea = await this.ideaRepository.findOne(id,{relations:['author','upvotes','downvotes']});
+        const idea = await this.ideaRepository.findOne(id,{relations:['author','upvotes','downvotes','comments']});
         if(!idea){
             throw new HttpException('Not found',HttpStatus.NOT_FOUND);
         }

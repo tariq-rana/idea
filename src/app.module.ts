@@ -10,6 +10,7 @@ import { LoggingInterceptors } from './shared/logging.interceptors';
 
 import { UserModule } from './user/user.module';
 import { IdeaModule } from './idea/idea.module';
+import { CommentModule } from './comment/comment.module';
 
 
 
@@ -18,6 +19,7 @@ import { IdeaModule } from './idea/idea.module';
     TypeOrmModule.forRoot(),
     IdeaModule,
     UserModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [
