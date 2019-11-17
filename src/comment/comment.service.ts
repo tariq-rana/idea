@@ -21,8 +21,13 @@ export class CommentService {
     }
 
 
-    async findAllComment():Promise<any>{
-        const comments = await this.commentRepository.find({relations:['author', 'idea']});
+    async findAllComment(page:number=1):Promise<any[]>{
+        const comments = await this.commentRepository.find(
+            {
+                relations:['author', 'idea'],
+                take:25,
+                skip:25 * (page-1)
+        });
         return comments.map(comment => this.toResponseObject(comment));
     }
 
@@ -31,13 +36,24 @@ export class CommentService {
         return this.toResponseObject(comment);
     }
 
-    async findCommentByIdea(ideaId:string):Promise<any>{
-        const idea = await this.ideaRepository.findOne({where:{id:ideaId}, relations:['comments','comments.author','comments.idea']});
-        return idea.comments.map(comment => this.toResponseObject(comment));
-    }
+    async findCommentByIdea(ideaId:string, page:number=1):Promise<any[]>{
+        const comments = await this.commentRepository.find({
+          where: { idea: { id: ideaId } },
+          relations: ['author', 'idea'],
+          take: 25,
+          skip: 25 * (page - 1),
+        });
+        return comments.map(comment => this.toResponseObject(comment));
+      }
 
-    async findCommentByUser(userId:string):Promise<any[]>{
-        const comments = await this.commentRepository.find({where:{author:{id:userId}}, relations:['author']});
+    async findCommentByUser(userId:string, page:number=1):Promise<any[]>{
+        const comments = await this.commentRepository.find({
+                where:{author:{id:userId}}, 
+                relations:['author'],
+                take:25,
+                skip:25 * (page-1)
+
+            });
         return comments.map(comment => this.toResponseObject(comment));
     }
     

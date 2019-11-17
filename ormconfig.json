@@ -6,6 +6,7 @@
     "password": "ideas",
     "database": "ideas",
     "synchronize": true,
+    "dropSchema": false,
     "logging": true,
     "entities": ["dist/**/*.entity{.ts,.js}"]
 }

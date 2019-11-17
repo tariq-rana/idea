@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, UsePipes, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, UsePipes, Param, Query,UseGuards } from '@nestjs/common';
 import { ValidationPipe } from '../shared/validation.pipe';
 
 import { UserService } from './user.service';
@@ -12,8 +12,8 @@ export class UserController {
 
 
     @Get('/api/user')
-    findAllUser(){
-        return this.userService.findAllUser();
+    findAllUser(@Query('page') page:number){
+        return this.userService.findAllUser(page);
     }
 
     // @UseGuards(new AuthGuard())

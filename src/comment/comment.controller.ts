@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Param,  UseGuards, UsePipes,Body } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Param,  UseGuards, UsePipes,Body, Query } from '@nestjs/common';
 import { AuthGuard } from '../shared/auth.guard';
 import { ValidationPipe } from '../shared/validation.pipe';
 
@@ -11,8 +11,8 @@ export class CommentController {
     constructor(private readonly commentService:CommentService){}    
 
     @Get()
-    findAllComment(){
-        return this.commentService.findAllComment();
+    findAllComment(@Query('page') page:number){
+        return this.commentService.findAllComment(page);
     }
     
     @Get(':id')
@@ -22,13 +22,13 @@ export class CommentController {
     }
 
     @Get('idea/:id')
-    findCommentByIdea(@Param('id') ideaId:string){
-        return this.commentService.findCommentByIdea(ideaId);
+    findCommentByIdea(@Param('id') ideaId:string, @Query('page') page:number){
+        return this.commentService.findCommentByIdea(ideaId,page);
     }
 
     @Get('user/:id')
-    findCommentByUser(@Param('id') userId:string){
-        return this.commentService.findCommentByUser(userId);
+    findCommentByUser(@Param('id') userId:string, @Query('page') page:number){
+        return this.commentService.findCommentByUser(userId,page);
     }
 
     @Post('idea/:id')

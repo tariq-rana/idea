@@ -17,12 +17,12 @@ export class IdeaEntity {
     @UpdateDateColumn()
     updated:Date;
 
-    @Column({
-        length:100
-    })
+    @Column()
     idea:  string;
 
-    @Column()
+    @Column({
+        length: 4000
+    })
     description:  string;
 
     @ManyToOne(type => UserEntity, user=> user.ideas)

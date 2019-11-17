@@ -59,9 +59,15 @@ export class IdeaService {
         return idea;
     }
 
-    async findAllIdea(): Promise<IdeaRO[]>{
-        const ideas = await this.ideaRepository.find({relations:['author','upvotes','downvotes','comments']});
-        //return ideas;
+    async findAllIdea(page:number=1, newest?:boolean): Promise<IdeaRO[]>{
+        const ideas = await this.ideaRepository.find(
+            {
+                relations:['author','upvotes','downvotes','comments'],
+                take:25,
+                skip:25 * (page-1),
+                order: newest && {created:'DESC'}
+
+            });
         return ideas.map(idea => this.toResponseObject(idea)) ;
     }
 
@@ -78,7 +84,7 @@ export class IdeaService {
     async insertIdea(userId, ideaDTO:IdeaDTO):Promise<IdeaRO>{
         const author = await this.userRepository.findOne({where:{id:userId}});
         
-        const idea = await this.ideaRepository.create({...ideaDTO,author});
+        const idea =  await this.ideaRepository.create({...ideaDTO,author});
         const newIdea = await this.ideaRepository.save(idea);
         return this.toResponseObject(idea);
     }
