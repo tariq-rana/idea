@@ -1,0 +1,47 @@
+type User {
+    id:ID!,
+    username: String!
+    bookmarks:[Idea!]
+    ideas:[Idea!]
+    comments:[Comment!]
+}
+
+type Query {
+    users(page: Int): [User!]
+}
+
+
+# {
+#   users(page:1){
+#     id
+#     username
+#     ideas{
+#       id
+#       idea
+#     }
+#     bookmarks{
+#       id
+#       idea
+#     },
+#     comments{
+#       id
+#       created
+#       comment
+#     }
+#   }
+# }
+
+# {
+#   users{
+#     id
+#     username
+#     ideas{
+#       id
+#       idea
+#       comments{
+#         id
+#         comment
+#       }
+#     }
+#   }
+# }

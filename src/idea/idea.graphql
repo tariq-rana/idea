@@ -1,0 +1,33 @@
+type Idea{
+    id:ID!
+    created: String!
+    idea: String!
+    description: String!
+    author: User
+    upvotes: Int
+    downvotes: Int
+    comments: [Comment!]
+}
+
+type Query{
+    ideas(page: Int, newest:Boolean):[Idea!]
+}
+
+# {
+#   ideas(page:1, newest:true){
+#     id
+#     created
+#     idea
+#     description
+#     author{
+#       id
+#       username
+#     }
+#     upvotes
+#     downvotes
+#     comments{
+#       id
+#       comment
+#     }
+#   }
+# }
