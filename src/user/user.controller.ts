@@ -15,7 +15,12 @@ export class UserController {
     findAllUser(@Query('page') page:number){
         return this.userService.findAllUser(page);
     }
+    @Get('/api/user/:username')
+    findAfindOneUserByNamellUser(@Param('username') username:string){
+        return this.userService.findOneUserByName(username);
+    }
 
+    
     // @UseGuards(new AuthGuard())
     // @Get('/api/user')
     // findAllUser(@User() user){

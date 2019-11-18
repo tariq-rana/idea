@@ -6,10 +6,21 @@ type User {
     comments:[Comment!]
 }
 
-type Query {
-    users(page: Int): [User!]
+type Auth{
+    username: String!
+    token: String!
 }
 
+type Query {
+    users(page: Int): [User!]
+    user(username:String!):User!
+    whoami: User
+}
+
+type Mutation{
+    login(username:String!, password:String!):Auth!
+    register(username:String!, password:String!): Auth!
+}
 
 # {
 #   users(page:1){
@@ -44,4 +55,37 @@ type Query {
 #       }
 #     }
 #   }
+# }
+
+# mutation ($username:String!,$password:String!){
+#   login(username:$username,password:$password){
+#     username
+#     token
+# 	  }
+# }
+
+
+# {
+#   user(username : "Cesar9") {
+#     id
+#   	username
+#     bookmarks{
+#       id
+#       idea
+#     }
+#  }
+# }
+
+
+# {
+#   whoami{
+#     id
+#     username
+#     ideas{
+#       idea
+#     }
+#   }
+# }
+# {
+#    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlBNDAyQTVFLUQwMDgtRUExMS05MDUyLTAwNTA1NkMwMDAwOCIsInVzZXJuYW1lIjoiQ2VzYXI5IiwiaWF0IjoxNTc0MDkwNDI4LCJleHAiOjE1NzQ2OTUyMjh9.s-oDq5usH7Aaio1q6WIxDAqu306UmdajFWF-8fXLSNo"
 # }
