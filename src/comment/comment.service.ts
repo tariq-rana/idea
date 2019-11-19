@@ -20,7 +20,6 @@ export class CommentService {
         return responseObject;
     }
 
-
     async findAllComment(page:number=1):Promise<any[]>{
         const comments = await this.commentRepository.find(
             {

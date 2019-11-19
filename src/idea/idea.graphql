@@ -1,5 +1,5 @@
 type Idea{
-    id:ID!
+    id:ID
     created: String!
     idea: String!
     description: String!
@@ -10,11 +10,23 @@ type Idea{
 }
 
 type Query{
-    ideas(page: Int, newest:Boolean):[Idea!]
+    ideaAll(page: Int, newest:Boolean):[Idea!]
+    ideaOne(id:ID!): Idea!
+}
+
+type Mutation{
+    insertIdea(idea:String!, description:String!): Idea!
+    updateIdea(id:ID!, idea:String, description:String): Idea!
+    deleteIdea(id:ID!): Idea!
+    upvoteIdea(id:ID!): Idea!
+    downvoteIdea(id:ID!): Idea!
+    bookmarkIdea(id:ID!): User!
+    unbookmarkIdea(id:ID!): User!
+
 }
 
 # {
-#   ideas(page:1, newest:true){
+#   ideaAll(page:1, newest:true){
 #     id
 #     created
 #     idea
@@ -30,4 +42,45 @@ type Query{
 #       comment
 #     }
 #   }
+# }
+
+# mutation{
+#   insertIdea(idea:"Test Idea",description:"Test Description"){
+#     idea
+#   }
+# }
+# {
+#    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlBNDAyQTVFLUQwMDgtRUExMS05MDUyLTAwNTA1NkMwMDAwOCIsInVzZXJuYW1lIjoiQ2VzYXI5IiwiaWF0IjoxNTc0MTc1MzQ4LCJleHAiOjE1NzQ3ODAxNDh9.WO_5DHONOQG6WdiTmOBPxc1tGgLA6q3zN0nt3xEM4fg"
+# }
+
+
+# mutation{
+#   updateIdea(id:"4cf9e243-dd0a-ea11-9a4a-005056c00008",
+#   		idea:"Test 2",
+#   		description:"Desc 2"){
+#     id
+#     idea
+#     description
+#   }
+# }
+#    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlBNDAyQTVFLUQwMDgtRUExMS05MDUyLTAwNTA1NkMwMDAwOCIsInVzZXJuYW1lIjoiQ2VzYXI5IiwiaWF0IjoxNTc0MTc1MzQ4LCJleHAiOjE1NzQ3ODAxNDh9.WO_5DHONOQG6WdiTmOBPxc1tGgLA6q3zN0nt3xEM4fg"
+# }
+
+# mutation{
+#   upvoteIdea(id:"4cf9e243-dd0a-ea11-9a4a-005056c00008"){
+#     id
+#     idea
+#   }
+# }
+# }
+#    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlBNDAyQTVFLUQwMDgtRUExMS05MDUyLTAwNTA1NkMwMDAwOCIsInVzZXJuYW1lIjoiQ2VzYXI5IiwiaWF0IjoxNTc0MTc1MzQ4LCJleHAiOjE1NzQ3ODAxNDh9.WO_5DHONOQG6WdiTmOBPxc1tGgLA6q3zN0nt3xEM4fg"
+# }
+
+
+# mutation{
+#   bookmarkIdea(id:"4cf9e243-dd0a-ea11-9a4a-005056c00008"){
+#     username
+#   }
+# }
+#    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlBNDAyQTVFLUQwMDgtRUExMS05MDUyLTAwNTA1NkMwMDAwOCIsInVzZXJuYW1lIjoiQ2VzYXI5IiwiaWF0IjoxNTc0MTc1MzQ4LCJleHAiOjE1NzQ3ODAxNDh9.WO_5DHONOQG6WdiTmOBPxc1tGgLA6q3zN0nt3xEM4fg"
 # }

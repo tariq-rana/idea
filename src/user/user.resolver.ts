@@ -13,7 +13,7 @@ export class UserResolver {
 
         
     @Query()
-    user(@Args('username') username: string) {
+    userOne(@Args('username') username: string) {
         return this.userService.findOneUserByName(username);
     }
 
@@ -25,7 +25,7 @@ export class UserResolver {
     }
 
     @Query()
-    users(@Args('page') page: number) {
+    userAll(@Args('page') page: number) {
         return this.userService.findAllUser(page);
     }
 
