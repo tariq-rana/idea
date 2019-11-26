@@ -20,18 +20,18 @@ export class IdeaController {
 
 
     @Get()
-    @UseGuards(new AuthGuard())
+   // @UseGuards(new AuthGuard())
     findAllIdea(@Query('page') page:number) {
             return this.ideaService.findAllIdea(page);
     }
 
     @Get('/newest')
-    getNewest(@Query('page') page:number){
+    getNewestIdea(@Query('page') page:number){
         return this.ideaService.findAllIdea(page, true);
     }
 
     @Get(':id')
-    @UseGuards(new AuthGuard())
+   // @UseGuards(new AuthGuard())
     findOneIdea(@Param('id') id:string){
         return this.ideaService.findOneIdea(id)
     }

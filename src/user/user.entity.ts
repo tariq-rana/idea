@@ -2,8 +2,13 @@ import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, BeforeInsert,
      OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import  * as bcrypt  from 'bcryptjs';
 import  * as jwt from 'jsonwebtoken';
+
+import { ApiModelProperty } from '@nestjs/swagger';
+
 import { IdeaEntity } from '../idea/idea.entity';
 import { UserRO } from './user.dto';
+
+
 
 @Entity({name:"user"})
 export class UserEntity{
@@ -13,12 +18,14 @@ export class UserEntity{
     @CreateDateColumn()
     created: Date;
 
+    @ApiModelProperty()
     @Column({
         type: 'nvarchar',
         unique: true
     })
     username:string;
-
+    
+    @ApiModelProperty()
     @Column('text')
     password:string;
 

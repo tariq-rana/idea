@@ -6,20 +6,36 @@ import { UserDTO } from './user.dto';
 import { User } from './user.decorator';
 import { AuthGuard } from '../shared/auth.guard';
 
+
+import { ApiBearerAuth } from '@nestjs/swagger';
+
+@ApiBearerAuth()
 @Controller()
 export class UserController {
     constructor(private readonly userService:UserService){}
 
 
-    @Get('/api/user')
+    @Get('api/users')
     findAllUser(@Query('page') page:number){
         return this.userService.findAllUser(page);
     }
-    @Get('/api/user/:username')
+
+    @Get('api/user/:username')
     findAfindOneUserByNamellUser(@Param('username') username:string){
         return this.userService.findOneUserByName(username);
     }
+    
+    @Get('api/user/:id')
+    findOneUser(@Param('id') id:string){
+        return this.userService.findOneUser(id);
+    }
+    
 
+    @Get('auth/whoami')
+    @UseGuards(new AuthGuard())
+    whoami(@User('username') username: string) {
+        return this.userService.findOneUserByName(username);
+    }
     
     // @UseGuards(new AuthGuard())
     // @Get('/api/user')
@@ -29,10 +45,6 @@ export class UserController {
     //     return this.userService.findAllUser();
     // }
 
-    @Get('/api/user/:id')
-    findOneUser(@Param('id') id:string){
-        return this.userService.findOneUser(id);
-    }
 
 
     // @Post()
@@ -42,13 +54,13 @@ export class UserController {
     // }
 
 
-    @Post('login')
+    @Post('auth/login')
     @UsePipes(new ValidationPipe())
     login(@Body() userDTO: UserDTO){
             return this.userService.login(userDTO);
     }
 
-    @Post('register')
+    @Post('auth/register')
     @UsePipes(new ValidationPipe())
     register(@Body() userDTO: UserDTO){
         return this.userService.register(userDTO);
